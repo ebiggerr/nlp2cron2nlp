@@ -4,7 +4,6 @@ package main
 import (
 	"flag"
 	"fmt"
-	"os"
 	"strings"
 )
 
@@ -22,9 +21,11 @@ func main() {
 	flag.Parse()
 	input = flag.Args()
 
-	if len(input) == 0 {
+	switch len(input) {
+	case 0:
 		flag.PrintDefaults()
-		os.Exit(1)
+	case 1:
+		fmt.Println("Your cron expression is too short.")
 	}
 
 	result, err := parse(strings.Join(input, " "), *mode)
@@ -32,7 +33,6 @@ func main() {
 		fmt.Println(result)
 	} else {
 		fmt.Println(err)
-		os.Exit(1)
 	}
 
 }
