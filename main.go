@@ -5,6 +5,7 @@ import (
 	"flag"
 	"fmt"
 	"os"
+	"strings"
 )
 
 var (
@@ -13,7 +14,7 @@ var (
 )
 
 func init() {
-	mode = flag.String("mode", "nlp2cron", "mode of the tool: either nlp2cron OR cron2nlp")
+	mode = flag.String("mode", "nlp2cron", "the mode, either 'nlp2cron' OR 'cron2nlp'")
 }
 
 func main() {
@@ -22,8 +23,15 @@ func main() {
 	input = flag.Args()
 
 	if len(input) == 0 {
-		fmt.Println("Usage: main.go -mode nlp2cron everyday noon")
 		flag.PrintDefaults()
+		os.Exit(1)
+	}
+
+	result, err := parse(strings.Join(input, " "), *mode)
+	if err != nil {
+		fmt.Println(result)
+	} else {
+		fmt.Println(err)
 		os.Exit(1)
 	}
 
