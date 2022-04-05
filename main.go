@@ -1,4 +1,4 @@
-// The tool converts NLP to cron expression
+// The tool does NLP. Converts natural language to cron expression
 package main
 
 import (
