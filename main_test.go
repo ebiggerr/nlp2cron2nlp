@@ -11,7 +11,10 @@ func TestParse(t *testing.T) {
 	}{
 		{"everyday noon", "0 12 * * *"},
 		{"8AM every friday", "0 8 * * 5"},
-		{"9PM on the first day of each year ", "0 21 1 1 *"},
+		{"3PM on the first three day of each year ", "0 15 1,2,3 1 *"},
+		{"10PM on every weekday", "0 22 * * 1-5"},
+		{"once every 2 hours", "0 0-23/2 * * *"},
+		{"once every 30 minutes", "*/30 * * * *"},
 	}
 
 	for _, testcase := range testcases {
