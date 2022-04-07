@@ -30,9 +30,9 @@ func main() {
 
 	result, err := parse(strings.Join(input, " "), *mode)
 	if err != nil {
-		fmt.Println(result)
-	} else {
 		fmt.Println(err)
+	} else {
+		fmt.Println(result)
 	}
 
 }
