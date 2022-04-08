@@ -4,14 +4,12 @@ import (
 	"errors"
 )
 
-//this is constant
 var (
+	//this is constant
 	optionList = []string{"nlp2cron", "cron2nlp"}
 )
 
 func parse(input string, opts string) (string, error) {
-
-	var result = ""
 
 	if len(input) == 0 {
 		return input, errors.New("error - Invalid expression")
@@ -26,16 +24,24 @@ func parse(input string, opts string) (string, error) {
 	if opts == optionList[0] {
 		nlp2cron := &nlp2cron{}
 		parser.setParsingMethod(nlp2cron)
-		result = parser.parsing(input)
+		if invalid := parser.validate(input); invalid != "" {
+			return "Invalid characters/symbol found", errors.New("your input contains invalid characters/symbol " + invalid)
+		} else {
+			return parser.parsing(input)
+		}
 	}
 
 	if opts == optionList[1] {
 		cron2nlp := &cron2nlp{}
 		parser.setParsingMethod(cron2nlp)
-		result = parser.parsing(input)
+		if invalid := parser.validate(input); invalid != "" {
+			return "Invalid characters/symbol found", errors.New("your input contains invalid characters/symbol " + invalid)
+		} else {
+			return parser.parsing(input)
+		}
 	}
 
-	return result, nil
+	return "Something went wrong", errors.New("something went wrong")
 }
 
 func contains(target string, arr []string) bool {
